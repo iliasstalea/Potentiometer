@@ -1,7 +1,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
-% Experten-Seminar: Potentiometer (Version 2.3 - ERWEITERT)
-% Mit vertieften Formeln, Schaltplänen und industriellen Beispielen
+% Seminar: Potentiometer 
+% Iliass Talea
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \documentclass[aspectratio=169]{beamer}
@@ -17,10 +17,14 @@
 \usepackage{amsmath}
 \usepackage{graphicx}
 \usepackage{booktabs}
-\usepackage{siunitx}
+\usepackage{siunitx} % Für korrekte Darstellung von Einheiten
 \usepackage{tikz}
 \usetikzlibrary{circuits.ee.IEC, positioning, arrows.meta}
-\usepackage{microtype}
+\usepackage{microtype} % Verbessert die Typografie
+\usepackage{hyperref} % Für klickbare Links im Quellenverzeichnis
+\hypersetup{colorlinks=true, urlcolor=blue, linkcolor=black}
+% --- ADD THIS LINE TO TURN ON CAPTION NUMBERING ---
+\setbeamertemplate{caption}[numbered]
 
 % --- TITELINFORMATIONEN ---
 \title[Potentiometer]{Seminar: Das Potentiometer}
@@ -29,18 +33,30 @@
 \institute{THGA}
 \date{\today}
 
-% --- FUSSZEILE ANPASSEN ---
-\addtobeamertemplate{footline}{}{
+% --- FUSSZEILE ANPASSEN (KORRIGIERTE VERSION) ---
+
+\setbeamertemplate{footline}
+{
   \leavevmode%
-  \begin{beamercolorbox}[wd=0.1\paperwidth,ht=0.5cm,dp=0.1cm,right]{palette primary}%
-    \includegraphics[height=0.5cm]{THGA-Logo.svg.png}% Achte auf PNG statt SVG
-    \hspace*{0.2cm}%
+  \hbox{%
+  \begin{beamercolorbox}[wd=.4\paperwidth,ht=2.25ex,dp=1ex,left]{author in head/foot}%
+    \hspace{2ex}\usebeamerfont{author in head/foot}\insertshortauthor
   \end{beamercolorbox}%
+  \begin{beamercolorbox}[wd=.2\paperwidth,ht=2.25ex,dp=1ex,center]{title in head/foot}%
+    \usebeamerfont{title in head/foot}\insertshorttitle
+  \end{beamercolorbox}%
+  \begin{beamercolorbox}[wd=.4\paperwidth,ht=2.25ex,dp=1ex,right]{date in head/foot}%
+    \usebeamerfont{date in head/foot}\insertshortdate{}\hspace*{2em}%
+    \insertframenumber{} / \inserttotalframenumber\hspace*{1ex}%
+    % Logo ist jetzt HIER integriert, um Layout-Fehler zu vermeiden
+    \includegraphics[height=1.8ex]{THGA-Logo.png}\hspace*{2ex}
+  \end{beamercolorbox}}%
+  \vskip0pt%
 }
+
 
 \begin{document}
 
-% --- TITELFOLIE ---
 % --- TITELFOLIE (angepasst, professionell im Seminar-Design) ---
 {
   \setbeamercolor{background canvas}{bg=white} % weißer Hintergrund
@@ -68,35 +84,41 @@
 
     % Logo unten rechts
     \begin{flushright}
-      \includegraphics[height=1.5cm]{THGA-Logo.svg.png}
+      \includegraphics[height=1.5cm]{THGA-Logo.png}
     \end{flushright}
 
   \end{frame}
 }
 
-
-
 % --- INHALTSVERZEICHNIS ---
 \begin{frame}{Agenda}
-  \scriptsize % noch kompakter
-  \tableofcontents[hidesubsections]
+  \tableofcontents
 \end{frame}
-
-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{1. Einleitung und Klassifizierung}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{frame}{Das Potentiometer als elektromechanischer Transducer}
-    \begin{block}{Formale Definition}
-        Ein Potentiometer ist ein passiver, elektromechanischer Wandler (Transducer), der eine mechanische Positionsänderung (linear oder rotatorisch) in eine proportionale Änderung eines elektrischen Widerstandswertes umwandelt. Primär wird es als einstellbarer Spannungsteiler eingesetzt.
-    \end{block}
     
-    % \vspace{0.5cm}  % <<< Temporär auskommentieren
     
     \begin{columns}[c]
-        \begin{column}{0.5\textwidth}
+        
+        \begin{column}{0.45\textwidth}
+            \begin{figure}
+                
+                \includegraphics[width=\textwidth, height=5cm, keepaspectratio]{aufbaupoti.jpg}
+                \caption{Prinzipieller Aufbau eines Drehpotis.}
+            \end{figure}
+        \end{column}
+
+        \begin{column}{0.55\textwidth}
+            \begin{block}{ Definition}
+                Ein Potentiometer ist ein passiver, elektromechanischer Wandler, der eine mechanische Position in eine proportionale Widerstandsänderung umwandelt.
+            \end{block}
+            
+            \medskip 
+            
             \textbf{Kernkomponenten:}
             \begin{itemize}
                 \item Stationäres Widerstandselement
@@ -104,28 +126,55 @@
                 \item Drei elektrische Anschlüsse
             \end{itemize}
         \end{column}
-        \begin{column}{0.5\textwidth}
-             % Test: kleines Dummy-Bild
-             \includegraphics[width=\textwidth,height=4cm]{Potentiometer1.png}
-\caption*{\tiny \textbf{Abb. 1:} Prinzipieller Aufbau eines Drehpotentiometers}
-        \end{column}
+
     \end{columns}
 \end{frame}
-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{2. Physikalische Realisierung}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% --- Slides über Materialien etc. (unverändert) ---
+\begin{frame}{Mechanische Potentiometer im Überblick}
+    \begin{columns}[T]
+        \begin{column}{0.55\textwidth}
+            \begin{block}{Drahtwickel-Potentiometer}
+                \begin{itemize}
+                    \item Widerstand aus fein gewickeltem Draht
+                    \item Hohe Linearität und Belastbarkeit
+                    \item Endliche Auflösung durch Drahtwicklungen
+                    \item Ideal für präzise Messgeräte und industrielle Sensorik
+                \end{itemize}
+            \end{block}
+
+            \begin{block}{Leitplastik-Potentiometer}
+                \begin{itemize}
+                    \item Widerstandsbahn aus leitfähigem Kunststoff
+                    \item Kostengünstig und quasi unendliche Auflösung
+                    \item Geringeres Kontaktrauschen
+                    \item Typisch in Audio- und Konsumelektronik
+                \end{itemize}
+            \end{block}
+        \end{column}
+        \begin{column}{0.45\textwidth}
+            \begin{figure}
+                % <<< THE FIX IS HERE
+                % We limit the height to 6cm and keep the aspect ratio.
+                \includegraphics[width=\textwidth, height=5.5cm, keepaspectratio]{plastik.png}
+                
+                \caption{\textcolor{black}{Drahtwickel- (links) vs. Leitplastik-Potentiometer (rechts).}}
+            \end{figure}
+        \end{column}
+    \end{columns}
+\end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{3. Analyse der elektrischen Eigenschaften}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{frame}{Der ideale Spannungsteiler vs. Realität}
-    Im Idealfall ist die Ausgangsspannung eines linearen Potentiometers exakt proportional zur Position des Schleifers:
-    $$ U_{out}(a) = U_{in} \cdot a \quad \text{mit} \quad a \in [0, 1] $$
+    Im Idealfall (unbelasteter Ausgang) ist die Ausgangsspannung eines linearen Potentiometers exakt proportional zur Position des Schleifers:
+    \[ U_{out}(a) = U_{in} \cdot a \quad \text{mit} \quad a \in [0, 1] \]
+    wobei $a$ die normalisierte Schleiferposition ist.
 
     \pause
 
@@ -137,7 +186,7 @@
 \begin{frame}{Analyse der Realität: Störfaktoren}
     \begin{alertblock}{In der Praxis wird die ideale Übertragungsfunktion durch mehrere Faktoren gestört:}
     \begin{itemize}
-        \item Der \textbf{Belastungseffekt (Loading Effect)}
+        \item Der \textbf{Belastungseffekt} durch den Lastwiderstand
         \item Die \textbf{endliche Auflösung} (bei Drahtwickel-Potis)
         \item Das \textbf{Kontaktwiderstandsrauschen (CRV)}
         \item \textbf{Parasitäre Effekte} bei hohen Frequenzen
@@ -145,29 +194,29 @@
     \end{alertblock}
 \end{frame}
 
-\begin{frame}{Kritischer Faktor: Der Belastungseffekt (Loading Effect)}
-\textbf{Problem:} Der an den Schleifer angeschlossene Lastwiderstand $R_L$ bildet eine Parallelschaltung mit dem Teilwiderstand $R_2$.
+\begin{frame}{Kritischer Faktor: Der Belastungseffekt}
+    \textbf{Problem:} Der an den Schleifer angeschlossene Lastwiderstand $R_L$ bildet eine Parallelschaltung mit dem Teilwiderstand $R_2$.
 
-\begin{columns}[c]
-    \begin{column}{0.55\textwidth}
-        Dies führt zu einer \textbf{nichtlinearen} Übertragungsfunktion.
-        \begin{block}{Spannungsteilerformel (belastet)}
-          $$ U_{out} = U_{in} \cdot \frac{R_2 || R_L}{R_1 + (R_2 || R_L)} $$
-        \end{block}
-        \vspace{0.3cm}
-        Mit $R_2||R_L = \tfrac{R_2 R_L}{R_2+R_L}$.
-    \end{column}
-    \begin{column}{0.45\textwidth}
-        \begin{tikzpicture}[circuit ee IEC, thick, scale=0.9]
-          \draw (0,0) to[resistor={info=$R_1$}] (0,-2)
-                    to[resistor={info=$R_2$}] (0,-4) node[ground]{};
-          \draw (0,-2) -- (2,-2)
-                    to[resistor={info=$R_L$}] (2,-4) node[ground]{};
-          \node at (-0.5,0) {$U_{in}$};
-          \node at (2.5,-2) {$U_{out}$};
-        \end{tikzpicture}
-    \end{column}
-\end{columns}
+    \begin{columns}[c]
+        \begin{column}{0.55\textwidth}
+            Dies führt zu einer \textbf{nichtlinearen} Übertragungsfunktion.
+            \begin{block}{Spannungsteilerformel (belastet)}
+              \[ U_{out} = U_{in} \cdot \frac{R_2 || R_L}{R_1 + (R_2 || R_L)} \]
+            \end{block}
+            \vspace{0.2cm}
+            Mit $R_2||R_L = \tfrac{R_2 R_L}{R_2+R_L}$. Der Fehler ist maximal, wenn $R_L$ in der Größenordnung des Potentiometerwiderstands liegt.
+        \end{column}
+        \begin{column}{0.45\textwidth}
+            \begin{tikzpicture}[circuit ee IEC, thick, scale=0.9]
+              \draw (0,0) to[resistor={info=$R_1$}] (0,-2)
+                          to[resistor={info=$R_2$}] (0,-4) node[ground]{};
+              \draw (0,-2) -- (2,-2)
+                          to[resistor={info=$R_L$}] (2,-4) node[ground]{};
+              \node at (-0.5,0) {$U_{in}$};
+              \node at (2.5,-2) {$U_{out}$};
+            \end{tikzpicture}
+        \end{column}
+    \end{columns}
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -175,193 +224,140 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{frame}{Kontaktwiderstandsrauschen (CRV)}
-    \textbf{Definition:} Fluktuationen im Übergangswiderstand zwischen Schleifer und Bahn. \\
-    \vspace{0.3cm}
+    \textbf{Definition:} Fluktuationen im Übergangswiderstand zwischen Schleifer und Widerstandsbahn, die eine Rauschspannung erzeugen. \\
+    
     \textbf{Mathematisches Modell:}
-    $$ U_{noise}(t) \approx k \cdot I(t) \cdot \Delta R_c(t) $$
+    \[ U_{noise}(t) \approx k \cdot I(t) \cdot \Delta R_c(t) \]
     mit $\Delta R_c$ = zeitabhängige Schwankung des Kontaktwiderstands.
 
-    \vspace{0.5cm}
     \begin{exampleblock}{Industrielle Relevanz}
-        In Audioverstärkern führt CRV zu hörbarem „Kratzen“. Hochwertige Leitplastik-Potis minimieren diesen Effekt.
+        In Audioverstärkern führt CRV zu hörbarem „Kratzen“ beim Verstellen der Lautstärke. Hochwertige Leitplastik-Potis minimieren diesen Effekt.
     \end{exampleblock}
 \end{frame}
 
 \begin{frame}{Parasitäre Induktivität und Kapazität}
-    Drahtgewickelte Potentiometer zeigen parasitäre Induktivitäten $L_p$, während großflächige Bahnen Kapazitäten $C_p$ erzeugen.
+    Drahtgewickelte Potentiometer zeigen parasitäre Induktivitäten $L_p$, während großflächige Bahnen parasitäre Kapazitäten $C_p$ erzeugen.
 
-    \begin{block}{Ersatzschaltbild (vereinfachte Darstellung)}
-    $$ Z_{eff}(\omega) = R + j\omega L_p + \frac{1}{j\omega C_p} $$
+    \begin{block}{Ersatzschaltbild bei hohen Frequenzen}
+    \[ Z_{eff}(\omega) = R + j\omega L_p + \frac{1}{j\omega C_p} \]
     \end{block}
 
     \begin{itemize}
         \item Bedeutend bei HF-Anwendungen (z. B. Radar, Kommunikation).
-        \item Lösung: Einsatz von \textbf{leitplastischen Potis} oder \textbf{digitale Alternativen}.
+        \item Lösung: Einsatz von \textbf{speziellen HF-Potis} oder \textbf{digitale Alternativen}.
     \end{itemize}
 \end{frame}
 
-\begin{frame}{Industrielle Anwendungen: Luft- und Raumfahrt}
-    \begin{columns}
-      \begin{column}{0.6\textwidth}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{5. Industrielle Anwendungen}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Anwendungen: Luft- und Raumfahrt}
+    \begin{columns}[c] 
+
+      % --- COLUMN 1: TEXT ---
+      \begin{column}{0.5\textwidth}
         \begin{itemize}
-          \item Positionssensoren in \textbf{Fly-by-Wire}-Systemen.
-          \item Steuerung von \textbf{Satellitenantennen}.
-          \item Robust gegen Strahlungseinflüsse, wenn drahtgewickelt.
+          \item Positionssensoren in \textbf{Fly-by-Wire}-Systemen (z.B. Joystick-Abfrage).
+          \item Steuerung der Ausrichtung von \textbf{Satellitenantennen}.
+          \item Hohe Robustheit gegen Strahlungseinflüsse (besonders drahtgewickelte Varianten).
         \end{itemize}
       \end{column}
-      \begin{column}{0.4\textwidth}
-        \includegraphics[width=\textwidth]{Potentiometer2.png}
-        \tiny{Potentiometer in der Luftfahrtsteuerung}
+
+      % --- COLUMN 2: IMAGE ---
+      \begin{column}{0.5\textwidth}
+        \begin{figure}
+            \centering
+            \includegraphics[width=150]{potisaerospace.jpg}
+            
+            
+            
+            \vspace{0cm} 
+            
+           
+            \caption{Hochpräzisions-Potentiometer für die Luftfahrtsteuerung.}
+        \end{figure}
       \end{column}
+
     \end{columns}
 \end{frame}
 
-\begin{frame}{Industrielle Anwendungen: Robotik und Medizintechnik}
+\begin{frame}{Anwendungen: Robotik und Medizintechnik}
     \begin{block}{Robotik}
-      Gelenkwinkelmessung in Industrierobotern: robuste Rückführung in rauen Umgebungen.
+      Gelenkwinkelmessung in Industrierobotern: Eine robuste und kostengünstige Methode zur Positionsrückführung in rauen Umgebungen.
     \end{block}
     \begin{block}{Medizintechnik}
-      Exakte Positionierung in Infusionspumpen oder chirurgischen Instrumenten.
+      Exakte Positionierung in Infusionspumpen oder die Einstellung von Parametern an Dialysegeräten.
     \end{block}
     \vspace{0.3cm}
-    Alternative: \textbf{Hall-Sensoren} gewinnen an Bedeutung, jedoch oft teurer.
+    Alternative: Kontaktlose \textbf{Hall-Sensoren} gewinnen an Bedeutung, sind jedoch oft teurer und temperaturabhängiger.
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{5. Zukunftsperspektiven}
+\section{6. Zukunftsperspektiven: Digital vs. Analog}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{frame}{Vom Analogen zum Digitalen}
-  Moderne digitale Potentiometer (\emph{Digipots}) ersetzen mechanische Schleifer durch elektronische Schaltmatrizen.
+  Moderne digitale Potentiometer (\emph{Digipots}) ersetzen den mechanischen Schleifer durch eine elektronische Widerstands-Schaltmatrix.
   \begin{itemize}
-    \item \textbf{Vorteile:} Keine mechanische Abnutzung, serielle Ansteuerung via I$^2$C/SPI.
-    \item \textbf{Nachteile:} Begrenzte Auflösung (typ. 256 Stufen), eingeschränkte Spannungsbereiche.
+    \item \textbf{Vorteile:} Keine mechanische Abnutzung, kein CRV, präzise serielle Ansteuerung (I²C/SPI), geringe Größe.
+    \item \textbf{Nachteile:} Begrenzte Auflösung (typ. 256–1024 Stufen), eingeschränkte Spannungs- und Leistungsbereiche.
   \end{itemize}
 \end{frame}
 
-\begin{frame}{Forschungsperspektive: Neue Materialien}
-  \begin{itemize}
-    \item \textbf{Graphen-basierte Leitbahnen}: extrem geringe Rauschwerte, hohe Belastbarkeit.
-    \item \textbf{Nanostrukturierte Polymere}: flexible Potentiometer für Wearables.
-    \item \textbf{Hybrid-Sensoren}: Kombination aus Potentiometer und Hall-Effekt für \emph{fail-safe}-Architekturen.
-  \end{itemize}
-\end{frame}
-
-
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{6. Experimente: Mechanisch vs. Digital}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\begin{frame}{Linearität: Mechanisch vs. Digital}
-\textbf{Ziel:} Vergleich der Ausgangsspannung \(U_{out}\) vs. Schleiferstellung / Schritte.
+\begin{frame}{Linearität im Vergleich: Mechanisch vs. Digital}
+\textbf{Ziel:} Vergleich der Ausgangsspannung $U_{out}$ vs. Schleiferstellung / digitaler Schritt.
 
 \begin{tikzpicture}[scale=1.0]
-% Achsen
-\draw[->, thick] (0,0) -- (6,0) node[right]{Schleiferposition / Schritt};
-\draw[->, thick] (0,0) -- (0,4) node[above]{Ausgangsspannung $U_{out}$ (V)};
+    % Achsen
+    \draw[->, thick] (0,0) -- (6,0) node[right]{Schleiferposition / Schritt};
+    \draw[->, thick] (0,0) -- (0,4.2) node[above]{$U_{out}$};
 
-% Mechanisch (Drahtwicklung)
-\draw[red, thick, smooth] plot coordinates {(0,0) (1,0.68) (2,1.42) (3,2.05) (4,2.75) (5,3.48)};
-\node[red] at (4.5,3.2) {Mechanisch};
+    % Mechanisch (belastet)
+    \draw[red, thick, smooth] plot coordinates {(0,0) (1,0.68) (2,1.42) (3,2.05) (4,2.75) (5,3.48)};
+    \node[red, anchor=west] at (3.5, 2.5) {Mechanisch (belastet)};
 
-% Digital (256 Schritte)
-\draw[orange, thick] plot coordinates {(0,0) (0.2,0.14) (0.4,0.28) (0.6,0.56) (0.8,0.7) 
-                                      (1,0.98) (1.2,1.12) (1.4,1.4) (1.6,1.54) (1.8,1.82)
-                                      (2,1.96) (2.2,2.24) (2.4,2.38) (2.6,2.66) (2.8,2.8)
-                                      (3,3.08) (3.2,3.22) (3.4,3.5) (3.6,3.64) (3.8,3.92) (4,4)};
-\node[orange] at (4.2,3.8) {Digital};
+    % Digital (ideal)
+    \draw[orange, thick, dashed] (0,0) -- (5,4.0);
+    \node[orange, anchor=west] at (3.5, 3.8) {Digital (ideal linear)};
 \end{tikzpicture}
 
-\vspace{0.3cm}
-\tiny{Mechanisch: leicht nichtlinear, Kontaktrauschen; Digital: diskret, verschleißfrei}
+\begin{itemize}
+    \item Mechanisch: Kennlinie wird durch Last nichtlinear; Rauschen überlagert das Signal.
+    \item Digital: Perfekt lineare Stufen (diskret), verschleiß- und rauschfrei.
+\end{itemize}
 \end{frame}
 
-
-
-% --------------------------
-% Folie 1: Mechanische Potis
-% --------------------------
-\begin{frame}{Mechanische Potentiometer im Überblick}
-\begin{columns}[T]
-\begin{column}{0.6\textwidth}
-\begin{block}{Drahtwickel-Poti}
-\begin{itemize}
-    \item Widerstand aus fein gewickeltem Draht
-    \item Hohe Linearität und Genauigkeit
-    \item Schleiferkontakt erzeugt Rauschen unter Last
-    \item Ideal für präzise Messgeräte und industrielle Sensorik
-\end{itemize}
-\end{block}
-
-\begin{block}{Leitplastik-Poti}
-\begin{itemize}
-    \item Widerstandsbahn aus leitfähigem Kunststoff
-    \item Kostengünstig und langlebig bei geringer Belastung
-    \item Leicht geringere Linearität und etwas Rauschen
-    \item Typisch in Audio- und Konsumelektronik
-\end{itemize}
-\end{block}
-\end{column}
-\begin{column}{0.4\textwidth}
-\includegraphics[width=\textwidth]{plastik.png} % Optionales Bild
-\tiny{\textbf{Mechanische Potentiometer:} Drahtwickel-Poti links, Leitplastik-Poti rechts}
-\end{column}
-\end{columns}
-\end{frame}
-
-
-
-\begin{frame}{Rauschen & Belastungseffekt}
-\textbf{Setup:} Schleifer mittlere Position, konstanter Strom, verschiedene Lastwiderstände $R_L$.
+\begin{frame}{Rauschen & Belastungseffekt im Experiment}
+\textbf{Setup:} Schleifer in mittlerer Position, konstanter Strom.
 
 \begin{columns}[c]
-\begin{column}{0.5\textwidth}
-\begin{itemize}
-    \item Drahtwicklung: CRV sichtbar, Spannungsschwankungen 50–100 mV
-    \item Leitplastik: CRV kleiner, 20–50 mV
-    \item Digital: praktisch null Rauschen, Lastunempfindlich
-\end{itemize}
-\end{column}
-\begin{column}{4\textwidth}
-\begin{tikzpicture}[scale=0.9] % scale reduziert, passt besser auf Folie
-% Achsen
-\draw[->, thick] (0,0) -- (6,0) node[below]{Zeit (s)};
-\draw[->, thick] (0,0) -- (0,2) node[left]{Spannung (mV)};
-
-% Drahtwicklung
-\draw[red, thick, domain=0:5, samples=200, smooth] plot (\x, {1.6+0.3*sin(10*\x r)});
-
-% Leitplastik
-\draw[green, thick, domain=0:5, samples=200, smooth] plot (\x, {1.2+0.15*sin(8*\x r)});
-
-% Digital
-\draw[orange, thick, domain=0:5, samples=200, smooth] plot (\x, {0.7+0*sin(10*\x r)});
-
-% Grid
-\draw[gray!30, thin, step=0.5] (0,0) grid (6,2);
-
-% Legende unterhalb, außerhalb des Diagramms
-\node at (3, -0.8) {\small \textcolor{red}{Drahtwicklung} \quad \textcolor{green}{Leitplastik} \quad \textcolor{orange}{Digital}};
-
-\end{tikzpicture}
-\end{column}
+    \begin{column}{0.45\textwidth}
+        \begin{itemize}
+            \item Drahtwicklung: CRV sichtbar, Schwankungen von \SIrange{50}{100}{\milli\volt}.
+            \item Leitplastik: CRV deutlich geringer, ca. \SIrange{20}{50}{\milli\volt}.
+            \item Digital: Praktisch kein Rauschen, stabile Ausgangsspannung.
+        \end{itemize}
+    \end{column}
+    \begin{column}{0.55\textwidth}
+        \begin{tikzpicture}[scale=0.9, every node/.style={scale=0.9}]
+            % Achsen
+            \draw[->, thick] (0,0) -- (6.5,0) node[below]{Zeit (s)};
+            \draw[->, thick] (0,0) -- (0,2.5) node[left]{Spannung (mV)};
+            % Grid
+            \draw[gray!30, thin, step=0.5] (0,0) grid (6,2.2);
+            % Signale (ohne 'rand' für maximale Kompatibilität)
+            \draw[red, thick, domain=0:6, samples=200, smooth] plot (\x, {1.8+0.2*sin(15*\x r)});
+            \draw[green, thick, domain=0:6, samples=200, smooth] plot (\x, {1.2+0.1*sin(12*\x r)});
+            \draw[orange, thick] (0,0.5) -- (6,0.5);
+            % Legende
+            \node[red, anchor=west] at (1.5, 2.1) {Drahtwicklung};
+            \node[green, anchor=west] at (1.5, 1.5) {Leitplastik};
+            \node[orange, anchor=west] at (1.5, 0.8) {Digital};
+        \end{tikzpicture}
+    \end{column}
 \end{columns}
 \end{frame}
-
-
-
-\begin{frame}{Fazit: Mechanisch vs. Digital}
-\begin{itemize}
-    \item Digitalpotis: präzise Schritte, verschleißfrei, stabil bei Belastung
-    \item Mechanische Potis: leicht nichtlinear, CRV, Verschleiß über Zeit
-    \item Linearitätsmessung & Rauschmessung zeigen klar die Vorteile digitaler Lösungen
-    \item Mechanisch weiterhin relevant für kostengünstige, einfache Anwendungen
-\end{itemize}
-\end{frame}
-
-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{7. Zusammenfassung}
@@ -369,15 +365,130 @@
 
 \begin{frame}{Kernaussagen}
   \begin{enumerate}
-    \item Potentiometer sind vielseitige, elektromechanische Transducer.
-    \item Die Realität weicht vom idealen Spannungsteiler ab (Loading, CRV, parasitäre Effekte).
-    \item Industrielle Anwendungen reichen von Audio bis Raumfahrt.
-    \item Digitale und hybride Alternativen prägen die Zukunft.
+    \item Potentiometer sind vielseitige, robuste elektromechanische Transducer.
+    \item Die Realität weicht vom idealen Spannungsteiler ab (Belastungseffekt, CRV, parasitäre Effekte).
+    \item Die Wahl des Widerstandsmaterials (Draht, Leitplastik) bestimmt Präzision, Lebensdauer und Rauschverhalten.
+    \item Industrielle Anwendungen reichen von einfacher Steuerung bis zu hochzuverlässiger Sensorik in der Raumfahrt.
+    \item Digitale Potentiometer bieten Verschleißfreiheit und Präzision, können mechanische Varianten aber nicht in allen Anwendungsfällen ersetzen.
   \end{enumerate}
 \end{frame}
 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% HIER BEGINNT DER NEUE ABSCHNITT 
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{10. Diskussion} 
+
+\begin{frame}{Diskussionsfrage 1: Belastung}
+    \begin{block}{Szenario}
+        \begin{itemize}
+            \item Poti-Widerstand = \SI{10}{\kilo\ohm}
+            \item Last-Widerstand = \SI{10}{\kilo\ohm}
+        \end{itemize}
+    \end{block}
+
+    \begin{alertblock}{Frage}
+        Was passiert hier mit der Ausgangsspannung?
+    \end{alertblock}
+    
+    \pause % <-- Klick
+    \vfill
+    \begin{exampleblock}{Antwort}
+        \begin{itemize}
+            \item Der \textbf{Belastungseffekt} tritt auf.
+            \item Die Spannung wird \textbf{nichtlinear} (falsch).
+        \end{itemize}
+    \end{exampleblock}
+\end{frame}
+
+% --- ZWEITE FRAGE ---
+
+\begin{frame}{Diskussionsfrage 2: Material}
+    \begin{alertblock}{Frage}
+        Welches Poti für ein Audio-Gerät (damit es nicht "kratzt"): Drahtwickel oder Leitplastik?
+    \end{alertblock}
+    
+    \pause % <-- Klick
+    \vfill
+    \begin{exampleblock}{Antwort}
+        \begin{itemize}
+            \item \textbf{Leitplastik}.
+            \item Grund: Es hat fast kein \textbf{CRV} (Rauschen).
+        \end{itemize}
+    \end{exampleblock}
+\end{frame}
+
+% --- DRITTE FRAGE ---
+
+\begin{frame}{Diskussionsfrage 3: Digital}
+    \begin{alertblock}{Frage}
+        Was ist der größte Vorteil eines \textbf{Digital-Potis} (Digipot) im Vergleich zu einem mechanischen?
+    \end{alertblock}
+    
+    \pause % <-- Klick
+    \vfill
+    \begin{exampleblock}{Antwort}
+        \begin{itemize}
+            \item \textbf{Kein mechanischer Verschleiß.}
+            \item (Und auch kein Rauschen / CRV).
+        \end{itemize}
+    \end{exampleblock}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% HIER ENDET DER NEUE ABSCHNITT
+%
+% 
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{8. Quellen}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[allowframebreaks]{Quellen}
+    \begin{thebibliography}{99}
+        \bibitem{THGA_Vorlesung}
+P. Shirafkan: 
+\textit{Vorlesung: Bauelemente und Schaltungstechnik – Einführung und Widerstände.} 
+Technische Hochschule Georg Agricola (THGA), internes Skript, 2024.
+        \bibitem{WikiDigitalPot}
+Wikipedia:
+\textit{Digital Potentiometer.}
+Abgerufen am 09.10.2025 von \url{https://en.wikipedia.org/wiki/Digital_potentiometer}
+        \bibitem{SeminarLatex}
+        Talea, Iliass:
+        \textit{Seminar: Das Potentiometer.}
+        LaTeX-Projekt, Technische Hochschule Georg Agricola, 2025.
+        Verfügbar auf GitHub: \url{https://github.com/iliasstalea/Potentiometer}
+    \end{thebibliography}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{9. Bildnachweis} 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Bildnachweis und Danksagung}
+    \textbf{Erstellung der Abbildungen:}
+    \begin{itemize}
+        \item Alle Abbildungen in dieser Präsentation wurden mithilfe von KI-Werkzeugen (Google LLM Notebook und Gemini 2.5 Pro) durch den Autor erstellt.
+    \end{itemize}
+    \begin{block}{Beispielprompt (verkürzt)}
+        \textit{“Create a clear educational diagram comparing an analog rotary potentiometer and a digital potentiometer, showing the internal resistive track and wiper for the analog, and the resistor ladder network with switches for the digital. Use IEC symbols.”}
+    \end{block}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}[standout]
   Fragen?
 \end{frame}
+
+
+
+
+
+
+
+
 
 \end{document}
