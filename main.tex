@@ -23,7 +23,7 @@
 \usepackage{microtype} % Verbessert die Typografie
 \usepackage{hyperref} % Für klickbare Links im Quellenverzeichnis
 \hypersetup{colorlinks=true, urlcolor=blue, linkcolor=black}
-% --- ADD THIS LINE TO TURN ON CAPTION NUMBERING ---
+% --- ADD THIS LINE TO TURN ON CAPTION NUMBERING --
 \setbeamertemplate{caption}[numbered]
 
 % --- TITELINFORMATIONEN ---
@@ -53,6 +53,52 @@
   \end{beamercolorbox}}%
   \vskip0pt%
 }
+
+
+\usepackage{listings}
+\usepackage{xcolor}
+
+\lstdefinelanguage{json}{
+    basicstyle=\ttfamily\footnotesize,
+    numbers=left,
+    numberstyle=\tiny,
+    stepnumber=1,
+    numbersep=5pt,
+    showstringspaces=false,
+    breaklines=true,
+    frame=single,
+    backgroundcolor=\color{gray!10},
+    literate=
+     *{0}{{{\color{blue}0}}}{1}
+      {1}{{{\color{blue}1}}}{1}
+      {2}{{{\color{blue}2}}}{1}
+      {3}{{{\color{blue}3}}}{1}
+      {4}{{{\color{blue}4}}}{1}
+      {5}{{{\color{blue}5}}}{1}
+      {6}{{{\color{blue}6}}}{1}
+      {7}{{{\color{blue}7}}}{1}
+      {8}{{{\color{blue}8}}}{1}
+      {9}{{{\color{blue}9}}}{1}
+      {:}{{{\color{red}{:}}}}{1}
+      {,}{{{\color{red}{,}}}}{1}
+      {\{}{{{\color{orange}{\{}}}}{1}
+      {\}}{{{\color{orange}{\}}}}}{1}
+      {[}{{{\color{orange}{[}}}}{1}
+      {]}{{{\color{orange}{]}}}}{1}
+      {"}{{{\color{green}{"}}}}{1}
+}
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 \begin{document}
@@ -130,6 +176,74 @@
     \end{columns}
 \end{frame}
 
+
+
+% ---------------- Folie 1: Tabelle ----------------
+\begin{frame}{Klassifikation von Potentiometern}
+\centering
+\begin{tabular}{lll}
+\toprule
+\textbf{Kategorie} & \textbf{Beispiele} & \textbf{Hinweis / Farbe} \\
+\midrule
+Bauformen & Drehpoti, Schiebepoti, Trimmer & \colorbox{blue!15}{\strut Form} \\
+Materialien & Leitplastik, Cermet, Drahtgewickelt & \colorbox{green!15}{\strut Material} \\
+Funktionsprinzip & Mechanisch, Digitalpoti, Hall-basiert & \colorbox{orange!20}{\strut Prinzip} \\
+\bottomrule
+\end{tabular}
+
+\vspace{0.7cm}
+
+% ---------------- Professioneller Rahmen ----------------
+\begin{tikzpicture}
+\node[
+    fill=blue!20,            % Hintergrundfarbe
+    text=blue!900,           % Textfarbe
+    rounded corners=2mm,     % kleine Abrundung
+    font=\footnotesize\bfseries,
+    minimum height=0.8cm,
+    minimum width=5cm,
+    align=center,
+    path picture={
+        % optional: kleines Icon links einfügen
+        % \node at (path picture bounding box.west) {\includegraphics[height=0.6cm]{icon.png}};
+    }
+] at (0,0) {Fokus des Seminars: Leitplastik- und Drahtpotentiometer};
+\end{tikzpicture}
+
+
+\end{frame}
+
+% ---------------- Folie 2: Bild ----------------
+\begin{frame}{Leitplastik- und Drahtpotentiometer}
+    \begin{columns}[c]
+
+        % --- Linkes Bild ---
+        \begin{column}{0.48\textwidth}
+            \begin{figure}
+                \centering
+                \includegraphics[width=0.7\linewidth]{bauformen.jpg} 
+                \caption{Bauformen: Drehen, Schieben, Trimmen.}
+                \label{fig:bauformen}
+            \end{figure}
+        \end{column}
+
+        % --- Rechtes Bild ---
+        \begin{column}{0.48\textwidth}
+            \begin{figure}
+                \centering
+                \includegraphics[width=0.7\linewidth]{funktion.jpg} % kleineres Bild
+                \caption{Funktionsprinzip: Mechanisch, Digitalpoti, Hall-basiert.}
+                \label{fig:funktion}
+            \end{figure}
+        \end{column}
+
+    \end{columns}
+\end{frame}
+
+
+
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{2. Physikalische Realisierung}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -166,6 +280,20 @@
         \end{column}
     \end{columns}
 \end{frame}
+
+
+
+\begin{frame}{Mechanische Potentiometer im Überblick}
+  \begin{center}
+    \href{https://drive.google.com/file/d/1p4Oiq_yHVEMuO02oNpYVuEO2o35WG-JK/view?usp=drive_link}{
+      \includegraphics[width=0.5\linewidth]{video.png}
+    }
+
+    \vspace{0.1cm}
+    \small{Klicken Sie auf das Bild, um das Video abzuspielen.}
+  \end{center}
+\end{frame}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{3. Analyse der elektrischen Eigenschaften}
@@ -303,7 +431,80 @@
     \item \textbf{Vorteile:} Keine mechanische Abnutzung, kein CRV, präzise serielle Ansteuerung (I²C/SPI), geringe Größe.
     \item \textbf{Nachteile:} Begrenzte Auflösung (typ. 256–1024 Stufen), eingeschränkte Spannungs- und Leistungsbereiche.
   \end{itemize}
+  \vspace{0.3cm}
+
+\begin{center}
+\scriptsize
+\href{https://drive.google.com/file/d/1juGJN_5YOAVuYQdDns6diLQNnVhyoGma/view?usp=sharing}{\textbf{▶ Video anschauen}}
+\end{center}
+
 \end{frame}
+
+
+% ---------------- Folie: Digitale vs. Analoge Potentiometer ----------------
+\begin{frame}{Vergleich: Digital- vs. Analog-Potentiometer}
+\centering
+
+\begin{columns}[c]
+
+    % --- Spalte 1: Analog ---
+    \begin{column}{0.48\textwidth}
+        \begin{figure}
+            \centering
+            \includegraphics[width=\textwidth, height=4.5cm, keepaspectratio]{digimech.jpg}
+            \caption{Größenvergleich: Mechanisches Potentiometer (links) vs. Digitalpoti-IC (rechts).}
+        \end{figure}
+    \end{column}
+
+    % --- Spalte 2: Digital ---
+    \begin{column}{0.48\textwidth}
+        \begin{figure}
+            \centering
+            \includegraphics[width=\textwidth, height=4.5cm, keepaspectratio]{digi.jpg}
+            \caption{Digitaler Potentiometer (Digipot IC).}
+        \end{figure}
+    \end{column}
+
+\end{columns}
+
+\end{frame}
+
+% ---------------- Folie: Kreativer Hinweis ----------------
+\begin{frame}{Hinweis: Analoge vs. Digitale Potentiometer}
+\centering
+\begin{tikzpicture}
+\node[
+    draw=blue!50,             % Rahmenfarbe
+    fill=blue!10,             % Hintergrundfarbe
+    rounded corners=6mm,      % abgerundete Ecken
+    drop shadow,              % Schatten für Tiefe
+    text width=0.8\textwidth, % Breite des Textblocks
+    align=center,             % zentrierter Text
+    font=\footnotesize\itshape % Kursiv, kleinere Schrift
+] 
+{
+\textbf{„Der Wandel ist die Umkehr der Kausalität.“} \\[1mm]
+Das mechanische Poti ist ein \textit{passiver Transducer}, der eine Aktion erfasst.\\
+Das digitale System ist ein \textit{aktives Stellglied}, das eine Information ausführt.
+};
+\end{tikzpicture}
+\vspace{0.3cm}
+
+\begin{center}
+\scriptsize
+\textbf{Von Hand zu Mikrochip:} \\
+1841–1872: Mechanisches Poti – simple, elegant, handgesteuert. \\
+1980er–1990er: Digitales Poti – winziger Chip, Transistoren orchestrieren Widerstände, präzise und zuverlässig. \\
+Über 100 Jahre, und der Mensch verwandelte einfache Drehbewegungen in kontrollierbare digitale Intelligenz…
+\end{center}
+
+\end{frame}
+
+
+
+
+
+
 
 \begin{frame}{Linearität im Vergleich: Mechanisch vs. Digital}
 \textbf{Ziel:} Vergleich der Ausgangsspannung $U_{out}$ vs. Schleiferstellung / digitaler Schritt.
@@ -374,68 +575,30 @@
 \end{frame}
 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%
-% HIER BEGINNT DER NEUE ABSCHNITT 
-%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{10. Diskussion} 
 
-\begin{frame}{Diskussionsfrage 1: Belastung}
-    \begin{block}{Szenario}
-        \begin{itemize}
-            \item Poti-Widerstand = \SI{10}{\kilo\ohm}
-            \item Last-Widerstand = \SI{10}{\kilo\ohm}
-        \end{itemize}
-    \end{block}
 
-    \begin{alertblock}{Frage}
-        Was passiert hier mit der Ausgangsspannung?
-    \end{alertblock}
-    
-    \pause % <-- Klick
-    \vfill
-    \begin{exampleblock}{Antwort}
-        \begin{itemize}
-            \item Der \textbf{Belastungseffekt} tritt auf.
-            \item Die Spannung wird \textbf{nichtlinear} (falsch).
-        \end{itemize}
-    \end{exampleblock}
+\begin{frame}{Danksagung}
+    \vspace{0.5cm}
+    \begin{center}
+        \textbf{\Large Vielen Dank für Ihre Aufmerksamkeit!}
+    \end{center}
+
+    \vspace{0.5cm}
+    \textbf{Besonderer Dank an:}
+    \begin{itemize}
+        \item Prof. Dr.-Ing. Björn Keune für die Betreuung des Seminars
+        \item Die Technische Hochschule Georg Agricola (THGA) für die Unterstützung
+        \item Alle KI-Tools (Google LLM Notebook, Gemini 2.5 Pro, Veo3, ElevenLab, Canva) für die Erstellung der Abbildungen und Videos
+        \item Kommilitonen für wertvolles Feedback während der Vorbereitung
+    \end{itemize}
+
+    \vspace{0.5cm}
+    \begin{center}
+        \textit{Fragen oder Feedback sind herzlich willkommen.}
+    \end{center}
 \end{frame}
 
-% --- ZWEITE FRAGE ---
 
-\begin{frame}{Diskussionsfrage 2: Material}
-    \begin{alertblock}{Frage}
-        Welches Poti für ein Audio-Gerät (damit es nicht "kratzt"): Drahtwickel oder Leitplastik?
-    \end{alertblock}
-    
-    \pause % <-- Klick
-    \vfill
-    \begin{exampleblock}{Antwort}
-        \begin{itemize}
-            \item \textbf{Leitplastik}.
-            \item Grund: Es hat fast kein \textbf{CRV} (Rauschen).
-        \end{itemize}
-    \end{exampleblock}
-\end{frame}
-
-% --- DRITTE FRAGE ---
-
-\begin{frame}{Diskussionsfrage 3: Digital}
-    \begin{alertblock}{Frage}
-        Was ist der größte Vorteil eines \textbf{Digital-Potis} (Digipot) im Vergleich zu einem mechanischen?
-    \end{alertblock}
-    
-    \pause % <-- Klick
-    \vfill
-    \begin{exampleblock}{Antwort}
-        \begin{itemize}
-            \item \textbf{Kein mechanischer Verschleiß.}
-            \item (Und auch kein Rauschen / CRV).
-        \end{itemize}
-    \end{exampleblock}
-\end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
@@ -468,22 +631,95 @@ Abgerufen am 09.10.2025 von \url{https://en.wikipedia.org/wiki/Digital_potentiom
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{9. Bildnachweis} 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Bildnachweis und Danksagung}
-    \textbf{Erstellung der Abbildungen:}
-    \begin{itemize}
-        \item Alle Abbildungen in dieser Präsentation wurden mithilfe von KI-Werkzeugen (Google LLM Notebook und Gemini 2.5 Pro) durch den Autor erstellt.
-    \end{itemize}
-    \begin{block}{Beispielprompt (verkürzt)}
-        \textit{“Create a clear educational diagram comparing an analog rotary potentiometer and a digital potentiometer, showing the internal resistive track and wiper for the analog, and the resistor ladder network with switches for the digital. Use IEC symbols.”}
+% ---------------- Folie 1: Bildnachweis Bild 1 ----------------
+\begin{frame}{Bildnachweis – Positionssensoren}
+    \textbf{Bild 1 Beispiel – Positionssensoren:}
+    \begin{block}{Prompt:}
+        /imagine a high-resolution, ultra-realistic macro photograph. Three different position sensors are lying on a dark, scratched, anti-static mat with visible dust specks.
+        1.  On the left: A classic analog potentiometer, disassembled, showing the internal resistive track and a metal wiper with faint smudges.
+        2.  In the middle: A tiny, black 8-pin digital potentiometer (Digipot) IC chip.
+        3.  On the right: A contactless Hall-effect sensor, shown as two parts: a small silver neodymium magnet and the corresponding 3-pin Hall-sensor IC.
+        The lighting is a single, harsh workshop lamp from above, creating hard shadows and highlighting textures like fingerprints and metal grain. This must look like a real, unedited photo, not a 3D render. Absolutely no text, labels, or writing.
     \end{block}
+
+    \vspace{0.2cm}
+    \textbf{Erstellt mit:} Google LLM Notebook, Gemini 2.5 Pro
 \end{frame}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}[standout]
-  Fragen?
+% ---------------- Folie 2: Bildnachweis Bild 2 ----------------
+\begin{frame}{Bildnachweis – Potentiometer-Gruppe}
+    \textbf{Bild 2 Beispiel – Potentiometer-Gruppe:}
+    \begin{block}{Prompt:}
+        /imagine a high-resolution, ultra-realistic macro photograph of three real-world electronic components resting on a dark, slightly scratched metal workbench. The group includes:
+        1.  A standard rotary potentiometer with a metal shaft, showing tiny scratches and faint smudges or fingerprints on its casing.
+        2.  A linear slide potentiometer.
+        3.  A small blue 3-pin trimmer potentiometer (trim pot).
+        A few specks of dust are visible on the components. The lighting is a single, bright overhead lamp, creating sharp, realistic shadows. The image must look like a real photo, not a 3D render. Absolutely no text, labels, or writing.
+    \end{block}
+
+    \vspace{0.2cm}
+    \textbf{Erstellt mit:} Google LLM Notebook, Gemini 2.5 Pro
+\end{frame}
+
+% ---------------- Folie 3: Video ----------------
+
+
+\begin{frame}[fragile]{Video-Nachweis – „Reise durch die Welt der Potentiometer“}
+\textbf{Video-Prompt JSON :}
+
+\vspace{0.3cm}
+\begin{lstlisting}[language=json]
+{
+  "prompt": "Ultra-realistic 8s video: 
+  1. Hand turns volume knob, camera shows analog Poti and VU meter. 
+  2. Macro wire-wound Poti, copper coil, pins, base. 
+  3. 360° rotation of conductive-plastic Poti, transparent knob, stacked discs. 
+  4. Close-up guitar volume/tone knob. 
+  5. Airplane exterior to cockpit, fly-through, potentiometers in systems. 
+  6. Cockpit close-up: instruments, pilots. 
+  7. Conclusion: 'Vielen Dank' message ... 
+  Tools: Veo3, ElevenLab, Canva",
+  "duration": 8
+}
+\end{lstlisting}
+
+\vspace{0.2cm}
+\scriptsize
+\textit{Hinweis: Dies ist eine stark verkürzte Version des Prompts. Die vollständige Version ist deutlich länger und würde viele Seiten füllen.}
+\end{frame}
+
+\begin{frame}[fragile]{Video Prompt JSON – Digital Potentiometer Demo}
+\textbf{Video-Prompt JSON :}
+
+\vspace{0.3cm}
+\begin{lstlisting}[language=json]
+{
+  "prompt": "Ultra-realistic macro 8s video: working 8-pin Digipot circuit on cluttered workbench.
+  Round 1: Arduino Nano sends commands, red LED dim.
+  Round 2: LED steps up to medium brightness.
+  Round 3: LED steps to full brightness, discrete steps.
+  Round 4: LED steps down to medium then dim, repeating.
+  Realistic lighting, blurred surroundings, dust, metallic reflections, no text or labels.",
+  Tools: Veo3, 
+  First Foto Frames :  Leonardo Ai
+  "duration": 8
+ "
+}
+\end{lstlisting}
 \end{frame}
 
 
+
+
+
+
+
+
+
+
+
+
+\end{frame}
 
 
 
